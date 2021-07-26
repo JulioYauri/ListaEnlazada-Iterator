@@ -10,7 +10,11 @@ int main(){
 	auto itr = enteros.begin();
 	cout << *itr << ' ';
 	enteros.push_back(9);
+	enteros.push_back(18);
+	enteros.push_back(13);
 	cout << *(++(itr)) << "\n\n";
+	enteros.insert(6, 4);
+	cout << "Lista enteros: " << enteros << '\n';
 	
 	//constructor con un nodo como parametro
 	Node<string> cabeza("buenos");

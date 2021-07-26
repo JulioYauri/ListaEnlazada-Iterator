@@ -30,7 +30,7 @@ class LinkedList{
 		
 		//metodos
 		void clear();
-		void insert(T);
+		void insert(T, int);
 		void removeInd(int);
 		void removeVal(T);	
 		void push_back(T);
@@ -201,28 +201,55 @@ void LinkedList<T>::clear() {
 	size = 0;
 }
 
+//inserta un elemento en la lista
+//empieza a contar los índices desde 1
 template<typename T>
-void LinkedList<T>::insert(T n){
+void LinkedList<T>::insert(T n, int pos){
 	Node<T> *aux1 = new Node<T>(n);
     Node<T> *aux2 = head;
-    //lista vacía
-    if (head == nullptr) {
-        head = aux1;
-        size++;
-        return;
+    //posiciones invalidas
+    if(pos <= 0 || pos > size + 1) {
+    	std::cout << "Posicion invalida\n";
+		return;	
     }
-    //inserta al inicio
-    if(head->getElem() > n) {
-        aux1->setNext(head);
-        head = aux1;
-    }else{
-    	//busca la posicion
-        while((aux2->getNext() != nullptr) && (aux2->getNext())->getElem() < n){
-            aux2=(aux2->getNext());
-        }
-        aux1->setNext(aux2->getNext());
-        aux2->setNext(aux1);
-    }
+	
+	//inserta al inicio
+    if(pos == 1) {
+    	push_front(n);	
+    	return;
+	}
+	
+	//inserta al final 
+	if(pos == size + 1) {
+		push_back(n);
+		return;
+	}
+//    
+//	//lista vacía
+//    if (head == nullptr) {
+//        head = aux1;
+//        size++;
+//        return;
+//    }
+//    //inserta al inicio
+//    if(head->getElem() > n) {
+//        aux1->setNext(head);
+//        head = aux1;
+//    }else{
+//    	//busca la posicion
+//        while((aux2->getNext() != nullptr) && (aux2->getNext())->getElem() < n){
+//            aux2=(aux2->getNext());
+//        }
+//        aux1->setNext(aux2->getNext());
+//        aux2->setNext(aux1);
+//    }
+	Node<T>* nuevoElemento = new Node<T>(n);
+	Node<T>* tmp = head;
+	int aux = pos;
+	aux--;
+	while(--aux) tmp = tmp -> getNext();
+	nuevoElemento->setNext(tmp->getNext());
+	tmp->setNext(nuevoElemento);
     size++;
 }
 
